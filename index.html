@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beatopia Game</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="game-container">
+      <div class="start-screen" id="startScreen">
+        <h1>🎵 Beatopia Game 🎵</h1>
+        <p>Load a song and hit the beats!</p>
+
+        <div class="file-input-container">
+          <button class="start-btn" onclick="loadDefaultSong()">
+            Play Default Song
+          </button>
+          <p style="margin: 15px 0; color: white">- OR -</p>
+          <input
+            type="file"
+            id="audioFile"
+            class="file-input"
+            accept="audio/*"
+          />
+          <div class="loading" id="loadingText" style="display: none">
+            Analyzing audio...
+          </div>
+          <div class="song-info" id="songInfo"></div>
+        </div>
+
+        <button class="start-btn" id="startBtn" onclick="startGame()" disabled>
+          Select a Song First
+        </button>
+        <div class="instructions">
+          <p>Use A, S, D, F keys or tap the buttons</p>
+          <p>Perfect timing = more points!</p>
+          <p>Miss too many beats and it's game over!</p>
+        </div>
+      </div>
+
+      <div class="game-over-screen" id="gameOverScreen">
+        <h1>🎮 Game Over! 🎮</h1>
+        <div class="final-score">Score: <span id="finalScore">0</span></div>
+        <p>You missed too many beats!</p>
+        <button class="restart-btn" onclick="restartGame()">Play Again</button>
+      </div>
+
+      <div class="game-over-screen" id="winScreen" style="display: none">
+        <h1>🎮 Level Complete! 🎮</h1>
+        <div class="final-score">Score: <span id="winFinalScore">0</span></div>
+        <p>Well done!</p>
+        <button class="restart-btn" onclick="restartGame()">Play Again</button>
+      </div>
+
+      <div class="audio-controls">
+        <span class="volume-icon">🔊</span>
+        <input
+          type="range"
+          class="volume-slider"
+          id="volumeSlider"
+          min="0"
+          max="1"
+          step="0.1"
+          value="0.7"
+        />
+      </div>
+
+      <div class="game-header">
+        <div class="score">Score: <span id="score">0</span></div>
+        <div class="combo">Combo: <span id="combo">0</span></div>
+        <div class="health-bar">
+          <div class="health-fill" id="healthFill"></div>
+        </div>
+        <div class="song-progress">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <div class="game-area" id="gameArea">
+        <div class="track"></div>
+        <div class="track"></div>
+        <div class="track"></div>
+        <div class="track"></div>
+        <div class="hit-zone"></div>
+      </div>
+
+      <div class="controls">
+        <button class="control-btn" data-track="0">A</button>
+        <button class="control-btn" data-track="1">S</button>
+        <button class="control-btn" data-track="2">D</button>
+        <button class="control-btn" data-track="3">F</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

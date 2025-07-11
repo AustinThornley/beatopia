@@ -1,0 +1,366 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-container {
+  width: 400px;
+  height: 600px;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.game-header {
+  padding: 20px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.score {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.combo {
+  color: #ffd700;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.health-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.health-fill {
+  height: 100%;
+  background: linear-gradient(to right, #ff6b6b, #ffd700, #4ecdc4);
+  transition: width 0.3s ease;
+  border-radius: 4px;
+}
+
+.game-area {
+  height: 400px;
+  position: relative;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    transparent 100%
+  );
+}
+
+.track {
+  position: absolute;
+  width: 80px;
+  height: 100%;
+  border-left: 2px solid rgba(255, 255, 255, 0.3);
+  border-right: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.track:nth-child(1) {
+  left: 20px;
+  background: rgba(255, 0, 0, 0.1);
+}
+.track:nth-child(2) {
+  left: 120px;
+  background: rgba(0, 255, 0, 0.1);
+}
+.track:nth-child(3) {
+  left: 220px;
+  background: rgba(0, 0, 255, 0.1);
+}
+.track:nth-child(4) {
+  left: 320px;
+  background: rgba(255, 255, 0, 0.1);
+}
+
+.note {
+  position: absolute;
+  width: 60px;
+  height: 20px;
+  border-radius: 10px;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: fall linear;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.note.track-0 {
+  background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+}
+.note.track-1 {
+  background: linear-gradient(45deg, #4ecdc4, #7fdbda);
+}
+.note.track-2 {
+  background: linear-gradient(45deg, #45b7d1, #74c9e8);
+}
+.note.track-3 {
+  background: linear-gradient(45deg, #f9ca24, #fce95b);
+}
+
+.hit-zone {
+  position: absolute;
+  bottom: 80px;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border-top: 3px solid #ffd700;
+  border-bottom: 3px solid #ffd700;
+}
+
+.controls {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 20px;
+}
+
+.control-btn {
+  width: 60px;
+  height: 60px;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.1s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.control-btn:active {
+  transform: scale(0.9);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.control-btn:nth-child(1) {
+  background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+  color: white;
+}
+.control-btn:nth-child(2) {
+  background: linear-gradient(45deg, #4ecdc4, #7fdbda);
+  color: white;
+}
+.control-btn:nth-child(3) {
+  background: linear-gradient(45deg, #45b7d1, #74c9e8);
+  color: white;
+}
+.control-btn:nth-child(4) {
+  background: linear-gradient(45deg, #f9ca24, #fce95b);
+  color: black;
+}
+
+@keyframes fall {
+  to {
+    top: 100%;
+  }
+}
+
+.feedback {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+  pointer-events: none;
+  opacity: 0;
+  animation: feedbackAnim 0.8s ease-out;
+}
+
+@keyframes feedbackAnim {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.perfect {
+  color: #ffd700;
+  text-shadow: 0 0 10px #ffd700;
+}
+.good {
+  color: #4ecdc4;
+  text-shadow: 0 0 10px #4ecdc4;
+}
+.miss {
+  color: #ff6b6b;
+  text-shadow: 0 0 10px #ff6b6b;
+}
+
+.start-screen,
+.game-over-screen,
+.win-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  z-index: 1000;
+}
+
+.game-over-screen,
+.win-screen {
+  display: none;
+}
+
+.start-btn,
+.restart-btn {
+  padding: 15px 30px;
+  font-size: 18px;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: transform 0.2s;
+}
+
+.start-btn:hover,
+.restart-btn:hover {
+  transform: scale(1.05);
+}
+
+.instructions {
+  margin-top: 30px;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.final-score {
+  font-size: 32px;
+  color: #ffd700;
+  margin: 20px 0;
+}
+
+.audio-controls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 100;
+}
+
+.volume-slider {
+  width: 100px;
+  height: 5px;
+  margin-left: 10px; /* Add margin for the icon */
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background: #ffd700;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.song-progress {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 5px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, #667eea, #764ba2);
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+.file-input-container {
+  margin: 20px 0;
+  padding: 20px;
+  border: 2px dashed #667eea;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.file-input {
+  width: 100%;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.file-input::file-selector-button {
+  padding: 8px 16px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.loading {
+  color: #ffd700;
+  margin-top: 10px;
+}
+
+.song-info {
+  margin-top: 10px;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.volume-icon {
+  color: white;
+  font-size: 20px;
+  opacity: 0.8;
+  vertical-align: middle;
+}
